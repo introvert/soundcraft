@@ -1,0 +1,24 @@
+{
+  "pack": "deepwave.crystal_caves",
+  "minutes": 6.0,
+  "globalLowPassHz": 5349,
+  "depth": 0.26,
+  "maintain": {
+    "brightness": 0.88,
+    "reverb": 1.15,
+    "modDepth": 0.4,
+    "crossfadeScale": 1.3
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads",
+    "texture"
+  ],
+  "stemLufs": {
+    "drone": -20.2,
+    "pads": -22.1,
+    "air": -36.0,
+    "texture": -45.8
+  }
+}

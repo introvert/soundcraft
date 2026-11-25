@@ -1,0 +1,24 @@
+{
+  "pack": "deepwave.forest_canopy",
+  "minutes": 6.0,
+  "globalLowPassHz": 4949,
+  "depth": 0.37,
+  "maintain": {
+    "brightness": 0.95,
+    "reverb": 1.05,
+    "modDepth": 0.5,
+    "crossfadeScale": 1.2
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads",
+    "texture"
+  ],
+  "stemLufs": {
+    "drone": -20.5,
+    "pads": -21.7,
+    "air": -34.9,
+    "texture": -40.1
+  }
+}

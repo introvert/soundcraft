@@ -1,0 +1,24 @@
+{
+  "pack": "deepwave.deep_ocean",
+  "minutes": 6.0,
+  "globalLowPassHz": 1890,
+  "depth": 0.72,
+  "maintain": {
+    "brightness": 0.7,
+    "reverb": 1.25,
+    "modDepth": 0.3,
+    "crossfadeScale": 1.6
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads",
+    "texture"
+  ],
+  "stemLufs": {
+    "drone": -20.9,
+    "pads": -21.2,
+    "air": -35.2,
+    "texture": -42.8
+  }
+}

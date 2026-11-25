@@ -1,0 +1,24 @@
+{
+  "pack": "deepwave.cathedral_choir",
+  "minutes": 6.0,
+  "globalLowPassHz": 3824,
+  "depth": 0.47,
+  "maintain": {
+    "brightness": 0.85,
+    "reverb": 1.25,
+    "modDepth": 0.35,
+    "crossfadeScale": 1.4
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads",
+    "texture"
+  ],
+  "stemLufs": {
+    "drone": -20.7,
+    "pads": -21.5,
+    "air": -33.9,
+    "texture": -45.7
+  }
+}

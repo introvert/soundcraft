@@ -1,0 +1,22 @@
+{
+  "pack": "deepwave.northern_lights",
+  "minutes": 6.0,
+  "globalLowPassHz": 6024,
+  "depth": 0.26,
+  "maintain": {
+    "brightness": 1.0,
+    "reverb": 1.15,
+    "modDepth": 0.6,
+    "crossfadeScale": 1.2
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads"
+  ],
+  "stemLufs": {
+    "drone": -20.5,
+    "pads": -21.8,
+    "air": -33.2
+  }
+}

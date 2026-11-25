@@ -1,0 +1,22 @@
+{
+  "pack": "deepwave.focus_flow",
+  "minutes": 6.0,
+  "globalLowPassHz": 3972,
+  "depth": 0.53,
+  "maintain": {
+    "brightness": 1.0,
+    "reverb": 0.9,
+    "modDepth": 0.3,
+    "crossfadeScale": 1.2
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads"
+  ],
+  "stemLufs": {
+    "drone": -20.5,
+    "pads": -21.8,
+    "air": -34.2
+  }
+}

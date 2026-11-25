@@ -1,0 +1,22 @@
+{
+  "pack": "deepwave.sunrise",
+  "minutes": 6.0,
+  "globalLowPassHz": 7305,
+  "depth": 0.21,
+  "maintain": {
+    "brightness": 1.15,
+    "reverb": 0.95,
+    "modDepth": 0.65,
+    "crossfadeScale": 0.9
+  },
+  "stems": [
+    "air",
+    "drone",
+    "pads"
+  ],
+  "stemLufs": {
+    "drone": -21.0,
+    "pads": -21.2,
+    "air": -32.8
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "pack": "deepwave.tibetan_bowls",
+  "minutes": 6.0,
+  "globalLowPassHz": 2790,
+  "depth": 0.63,
+  "maintain": {
+    "brightness": 0.85,
+    "reverb": 1.25,
+    "modDepth": 0.35,
+    "crossfadeScale": 1.4
+  },
+  "stems": [
+    "air",
+    "drone",
+    "events",
+    "pads",
+    "texture"
+  ],
+  "stemLufs": {
+    "drone": -19.4,
+    "pads": -23.6,
+    "air": -37.2,
+    "texture": -51.3,
+    "events": -30.2
+  }
+}
