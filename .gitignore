@@ -1,14 +1,11 @@
+# audio stays local: renders, mixes, stems and session audio
+*.wav
+*.aif
+*.aiff
+*.flac
+*.mp3
+Audio Files/
 # SoundCraft autosave backups
 Backups/
-# exports that can be re-bounced from the sessions
-stems/
-stems_lush/
-# raw Surge renders (SoundCraft copies imports into "Audio Files/")
-v*/audio/
-# silent test recordings from the failed realtime Surge experiment
-**/Surge Print_*.wav
-probe*.wav
 __pycache__/
 .venv/
-# raw renders duplicated by the session copies (SoundCraft renames "(x)" to "_x_")
-v1/Audio Files/Surge * (*).wav

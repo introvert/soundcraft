@@ -34,10 +34,10 @@ python3 -m venv .venv && .venv/bin/pip install pedalboard mido numpy soundfile
 
 ## Versions
 
-| | Session | Mix |
+| | Session | Sound |
 |---|---|---|
 | v1 | `v1/Meditative Pad.scraft` | built-in synth pad → layered → Surge (MKS-70 / Growth / Distant) |
 | v2 | `v2/Meditative Pad v2.scraft` | Surge Utopia / Smooth Chorus / Planetarium / Sorrowful, wider voicings |
 
 All pieces: D → B♭ → F → C at 60 BPM, 64 s loops, plus sub, glass bells, wind and an octave-up shimmer reverb bus.
-Stems are not committed; re-export them with `file.bounce_stems`.
+Audio (renders, mixes, stems, session audio) is not committed; re-render with the scripts.
