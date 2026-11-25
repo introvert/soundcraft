@@ -38,6 +38,7 @@ python3 -m venv .venv && .venv/bin/pip install pedalboard mido numpy soundfile
 |---|---|---|
 | v1 | `v1/Meditative Pad.scraft` | built-in synth pad → layered → Surge (MKS-70 / Growth / Distant) |
 | v2 | `v2/Meditative Pad v2.scraft` | Surge Utopia / Smooth Chorus / Planetarium / Sorrowful, wider voicings |
+| v3 | `v3/Tibetan Bowls v3.scraft` | synthesized singing bowls (`scripts/bowls.py`): struck + rubbed bowls, tingsha, Surge drone, temple reverb bus — 96 s loop |
 
-All pieces: D → B♭ → F → C at 60 BPM, 64 s loops, plus sub, glass bells, wind and an octave-up shimmer reverb bus.
+v1–v2: D → B♭ → F → C at 60 BPM, 64 s loops, plus sub, glass bells, wind and an octave-up shimmer reverb bus.
 Audio (renders, mixes, stems, session audio) is not committed; re-render with the scripts.
