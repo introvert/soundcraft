@@ -330,6 +330,12 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         parts = [p for p in urlparse(self.path).path.split("/") if p]
+        if len(parts) == 3 and parts[:2] == ["api", "programs"] and _SLUG_PATH.match(parts[2]):
+            f = PROGRAMS / f"{parts[2]}.json"
+            if not f.is_file():
+                return self._json({"error": "no such program"}, HTTPStatus.NOT_FOUND)
+            f.unlink()
+            return self._json({"deleted": f"programs/{parts[2]}.json"})
         if len(parts) == 3 and parts[:2] == ["api", "jobs"]:
             return self._json({"cancelled": JOBS.cancel(parts[2])})
         return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)

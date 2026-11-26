@@ -30,7 +30,10 @@ class Sketch {
     const comp = ctx.createDynamicsCompressor();
     comp.threshold.value = -14; comp.ratio.value = 3; comp.attack.value = 0.05; comp.release.value = 0.5;
     comp.connect(this.master).connect(ctx.destination);
-    this.mixIn = ctx.createGain(); this.mixIn.connect(comp);
+    // engine whole-mix low-pass (depth × arc brightness), as compose.preview applies it
+    this.globalLP = ctx.createBiquadFilter(); this.globalLP.type = "lowpass"; this.globalLP.Q.value = 0.6;
+    this.globalLP.connect(comp);
+    this.mixIn = ctx.createGain(); this.mixIn.connect(this.globalLP);
 
     // shared reverb send
     this.verb = ctx.createConvolver();
@@ -86,6 +89,7 @@ class Sketch {
     const tc = (param, v) => param.setTargetAtTime(v, now, 0.08);
     tc(this.padLP.frequency, clamp(p.bands?.padLowPassHz ?? 8000, 100, 20000));
     tc(this.airHP.frequency, clamp(p.bands?.airHighPassHz ?? 1500, 20, 12000));
+    tc(this.globalLP.frequency, typeof engineCutoff === "function" ? engineCutoff(p).maintain : 8000);
     tc(this.verbWet.gain, clamp((p.reverb?.wet ?? 0.35) * 1.6, 0, 1.2));
     const rt = clamp(p.reverb?.rt60Sec ?? 5, 0.2, 12);
     if (force || a.rt !== rt) { this.verb.buffer = this._impulse(rt); a.rt = rt; }

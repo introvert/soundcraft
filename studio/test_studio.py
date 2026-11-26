@@ -93,3 +93,13 @@ def test_api_rejects_bad_programs(studio):
     assert status == 422
     assert _call(f"{base}/api/programs/..%2Fetc")[0] == 404
     assert _call(f"{base}/renders/deep_ocean/..%2F..%2Fserver.py")[0] in (400, 404)
+
+
+def test_api_delete(studio):
+    base, tmp = studio
+    prog = _call(f"{base}/api/programs/deep_ocean?source=builtin")[1]
+    prog.update(slug="gone_soon")
+    _call(f"{base}/api/programs/gone_soon", "PUT", prog)
+    assert _call(f"{base}/api/programs/gone_soon", "DELETE")[0] == 200
+    assert not (tmp / "programs" / "gone_soon.json").exists()
+    assert _call(f"{base}/api/programs/gone_soon", "DELETE")[0] == 404

@@ -153,6 +153,7 @@ function changed(touch = true) {
   $("#docSwatch").style.background = `#${p.color}`;
   $("#docSource").textContent = { saved: `programs/${p.slug}.json`, builtin: "built-in · not saved", new: "new · not saved" }[S.source];
   $("#docDirty").hidden = !dirty();
+  if ($("#btnDelete")) $("#btnDelete").hidden = S.source !== "saved";
   if (touch) sketch.update(p);
   clearTimeout(validateTimer);
   validateTimer = setTimeout(validate, touch ? 250 : 0);
@@ -323,15 +324,22 @@ function setAirKind(kind) {
   changed(); drawEditor();
 }
 
+// compose/arcs.py ARCS[category] maintain-phase brightness: what compose.preview renders at
+const MAINTAIN_BRIGHTNESS = { sleep: 0.7, focus: 1.0, energy: 1.15, calm: 0.88, meditate: 0.85, explore: 1.0, nature: 0.95 };
+function engineCutoff(p) {
+  const lp = p.bands?.padLowPassHz || 8000;
+  const depth = Math.round(Math.min(0.85, Math.max(0.1, 1 - (Math.min(lp, 7600) - 400) / 7600)) * 100) / 100;
+  const b = MAINTAIN_BRIGHTNESS[p.category] ?? 1;
+  return { depth, b, open: Math.round(400 + (1 - depth) * 7600), maintain: Math.round(400 + Math.min(1, (1 - depth) * b) * 7600) };
+}
+
 function drawDerived() {
   const el = $("#derived"); if (!el) return;
-  const lp = S.prog.bands?.padLowPassHz || 8000;
-  const openness = (Math.min(lp, 7600) - 400) / 7600;
-  const depth = Math.round(Math.min(0.85, Math.max(0.1, 1 - openness)) * 100) / 100;
-  const cutoff = Math.round(400 + (1 - depth) * 7600);
-  el.replaceChildren(h("span", {}, "Engine default depth "), h("b", {}, depth),
-    h("span", {}, " → global low-pass at brightness 1.0: "), h("b", {}, `${cutoff} Hz`),
-    h("span", { class: "muted" }, "  (compose arcs.default_depth; the arc then moves brightness by category)"));
+  const c = engineCutoff(S.prog);
+  el.replaceChildren(h("span", {}, "Engine default depth "), h("b", {}, c.depth),
+    h("span", {}, " → whole-mix low-pass "), h("b", {}, `${c.open} Hz`), h("span", {}, " at the start, "),
+    h("b", {}, `${c.maintain} Hz`), h("span", {}, ` mid-session (${S.prog.category} arc, brightness ${c.b}).`),
+    h("span", { class: "muted" }, " The preview mix and the sketch use the mid-session value."));
 }
 
 function eventsSection() {
@@ -492,6 +500,11 @@ function drawRenderButtons() {
 function validateButtons() { document.querySelectorAll("[data-needs-valid]").forEach((b) => (b.disabled = !!S.errors.length || !!S.job)); }
 
 async function startJob(kind, index = 0) {
+  if (kind === "full" && S.library.builtin.some((p) => p.slug === S.prog.slug) && !S.warnedBuiltin?.[S.prog.slug]) {
+    const msg = h("p", {}, `This rebuilds deepwave.${S.prog.slug}, the pack of the built-in theme, from this program. Duplicate first to keep both.`);
+    if ((await dialog("Rebuild a built-in pack?", msg, "Build anyway")) === null) return;
+    (S.warnedBuiltin ||= {})[S.prog.slug] = true;
+  }
   try {
     const job = await api("POST", "/api/jobs", { program: S.prog, kind, index, minutes: Number($("#renderMinutes").value) });
     S.job = job; validateButtons(); showJob(job); pollJob();
@@ -585,6 +598,16 @@ function dialog(title, body, okLabel = "OK") {
   return new Promise((res) => d.addEventListener("close", () => res(d.returnValue === "ok" ? true : null), { once: true }));
 }
 
+async function deleteProgram() {
+  if (S.source !== "saved") return toast("Only saved programs can be deleted.", "bad");
+  if ((await dialog("Delete program?", h("p", {}, `Delete programs/${S.prog.slug}.json? Its renders stay in compose/${S.prog.slug}/.`), "Delete")) === null) return;
+  try {
+    await api("DELETE", `/api/programs/${S.prog.slug}`);
+    S.savedJson = JSON.stringify(S.prog); toast(`Deleted programs/${S.prog.slug}.json`);
+    await refreshLibrary(); S.source = "new"; S.savedJson = null; changed(false); drawLibrary();
+  } catch (e) { toast(e.message, "bad"); }
+}
+
 async function duplicate() {
   const name = h("input", { value: `${S.prog.name} copy` }), slug = h("input", { value: uniqueSlug(`${S.prog.slug}_copy`) });
   if ((await dialog("Duplicate as", h("div", {}, field("Name", name), field("Slug", slug)), "Duplicate")) === null) return;
@@ -609,6 +632,9 @@ function wireGlobal() {
   });
   $("#sketchLen").addEventListener("change", () => (sketch.chordSec = Number($("#sketchLen").value)));
   $("#sketchVol").addEventListener("input", (e) => sketch.setVolume(Number(e.target.value)));
+  const del = h("button", { class: "ghost", id: "btnDelete", title: "Delete programs/<slug>.json (renders are kept)" }, "Delete");
+  del.addEventListener("click", deleteProgram);
+  $(".actions").prepend(del);
   const dup = h("button", { class: "ghost", title: "Copy this program under a new slug" }, "Duplicate");
   dup.addEventListener("click", duplicate);
   $(".actions").prepend(dup);
