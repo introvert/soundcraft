@@ -22,6 +22,11 @@ mobile app (Deepwave, `~/code/mobile/soundfocus-app`).
 6. port to the app            publish_to_app.py deepwave.<theme>   (only after approval)
 ```
 
+Steps 1–5 can also run from the browser: **SoundCraft Studio** (`studio/`,
+`…/generation/.venv/bin/python studio/server.py`) edits a theme as a program,
+sketches it live, runs build + preview, plays the mix and stems, and saves the
+recipe to `programs/<slug>.json`. Porting (step 6) stays a manual command.
+
 Step 3 writes, per theme:
 
 | File | What |
@@ -67,6 +72,7 @@ Needs **Surge XT** (VST3) and ffmpeg. Serum is optional (see §4).
 | this repo `v1/ v2/ v3/` | the early SoundCraft sessions (meditative pad, layered pad, Tibetan bowls v3) |
 | this repo `scripts/` | SoundCraft control-server client (`sc.py`), early render/build scripts, `bowls.py` |
 | this repo `compose/<theme>/` | auditions from `compose.preview` (audio git-ignored) |
+| this repo `studio/`, `programs/` | Studio browser UI; saved soundscape programs (`programs/README.md`) |
 
 Repos: `github.com/introvert/soundcraft` (this) and
 `github.com/introvert/soundfocus-app` (branch `compose-theme-packs`).
