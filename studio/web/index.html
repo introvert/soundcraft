@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SoundCraft Studio</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">SoundCraft <span>Studio</span></div>
+  <div class="doc">
+    <span class="swatch" id="docSwatch"></span>
+    <span id="docTitle">—</span>
+    <span class="badge" id="docSource"></span>
+    <span class="dirty" id="docDirty" hidden>unsaved</span>
+  </div>
+  <div class="actions">
+    <button id="btnImport" class="ghost" title="Load a program .json from disk">Import</button>
+    <button id="btnExport" class="ghost" title="Download this program as .json">Download</button>
+    <button id="btnSave" class="primary" title="Save to programs/&lt;slug&gt;.json (⌘S)">Save</button>
+    <input type="file" id="fileImport" accept=".json,application/json" hidden>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="library">
+    <div class="lib-head">
+      <h2>Programs</h2>
+      <button id="btnNew" class="small">New</button>
+    </div>
+    <input id="libFilter" class="lib-filter" placeholder="Filter…" autocomplete="off">
+    <h3>Saved <small>programs/</small></h3>
+    <ul id="libSaved" class="lib-list"></ul>
+    <h3>Built-in themes <small>compose/themes.py</small></h3>
+    <ul id="libBuiltin" class="lib-list"></ul>
+    <div class="env" id="envInfo"></div>
+  </aside>
+
+  <main class="editor" id="editor">
+    <div class="errors" id="errors" hidden></div>
+    <!-- sections are rendered by app.js -->
+  </main>
+
+  <section class="listen">
+    <div class="card">
+      <h2>Sketch <small>instant, in the browser</small></h2>
+      <p class="hint">A rough Web Audio stand-in for the harmony, bands, air, events and arp, so you can hear edits immediately. Instruments are not Surge: render below for the real sound.</p>
+      <div class="row">
+        <button id="btnSketch" class="primary wide">▶ Play sketch</button>
+      </div>
+      <div class="row">
+        <label class="inline">Chord length <select id="sketchLen">
+          <option value="8">8 s</option><option value="14" selected>14 s</option>
+          <option value="30">30 s</option><option value="70">70 s (app)</option></select></label>
+        <label class="inline">Volume <input type="range" id="sketchVol" min="0" max="1" step="0.01" value="0.7"></label>
+      </div>
+      <div class="sketch-chords" id="sketchChords"></div>
+    </div>
+
+    <div class="card">
+      <h2>Render <small>compose · Surge XT</small></h2>
+      <div class="render-grid">
+        <div class="lbl">Audition one loop</div>
+        <div class="btns" id="auditionBtns"></div>
+        <div class="lbl">Full pack</div>
+        <div class="btns">
+          <label class="inline">Preview <select id="renderMinutes">
+            <option value="1">1 min</option><option value="3" selected>3 min</option>
+            <option value="6">6 min</option><option value="15">15 min</option></select></label>
+          <button id="btnBuild" class="primary">Build + preview</button>
+        </div>
+      </div>
+      <div class="job" id="job" hidden>
+        <div class="job-head"><span class="spinner" id="jobSpin"></span><span id="jobStage"></span>
+          <span class="muted" id="jobElapsed"></span><button id="btnCancel" class="small ghost">Cancel</button></div>
+        <pre class="log" id="jobLog"></pre>
+      </div>
+    </div>
+
+    <div class="card" id="results">
+      <h2>Listen <small id="resultsFor"></small></h2>
+      <div id="resultsBody" class="muted">Nothing rendered for this slug yet.</div>
+    </div>
+  </section>
+</div>
+
+<dialog id="dlg">
+  <form method="dialog" id="dlgForm">
+    <h3 id="dlgTitle"></h3>
+    <div id="dlgBody"></div>
+    <div class="row end">
+      <button value="cancel" class="ghost">Cancel</button>
+      <button value="ok" class="primary" id="dlgOk">OK</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="/music.js"></script>
+<script src="/sketch.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

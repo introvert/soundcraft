@@ -2,6 +2,19 @@
 
 Ambient/meditative pieces built by driving [SoundCraft](https://storyteller.ai) (Storyteller's DAW) from scripts through its local control server.
 
+## Studio: design soundscapes in the browser
+
+`studio/` is a local web UI over the compose theme renderer: edit a soundscape
+(key, chords, instruments, air, texture, events, arp), sketch it instantly,
+render it through Surge XT into a real pack + audition mix, and save the recipe
+to `programs/<slug>.json`.
+
+```sh
+~/code/mobile/soundfocus-app/generation/.venv/bin/python studio/server.py   # → http://127.0.0.1:8765
+```
+
+See [`studio/README.md`](studio/README.md) and the program format in [`programs/README.md`](programs/README.md).
+
 ## Driving SoundCraft
 
 Start it with the control server enabled:
