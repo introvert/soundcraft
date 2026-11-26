@@ -84,7 +84,11 @@ def _patches() -> list[str]:
 
 def environment() -> dict:
     themes = _builtin_themes()
-    patches = _patches()
+    # the Surge library, plus every patch a built-in theme uses (so the picker
+    # works, and shows what's proven, even where the Surge data dir isn't found)
+    used = {p for d in themes.values() for p in (d["instruments"]["body"], d["instruments"]["halo"],
+                                                   d["air"].get("surge"), (d["arp"] or {}).get("patch")) if p}
+    patches = sorted(set(_patches()) | used)
     return {
         "generation": str(GEN), "generationFound": (GEN / "compose" / "build.py").is_file(),
         "surgeInstalled": SURGE_VST3.exists(), "surgeData": str(SURGE_DATA),
@@ -92,6 +96,7 @@ def environment() -> dict:
         "options": {
             "categories": list(programs.CATEGORIES), "airProcs": list(programs.AIR_PROCS),
             "eventSynths": list(programs.EVENT_SYNTHS), "textures": _textures(), "patches": patches,
+            "usedPatches": sorted(used),
         },
         "builtinCount": len(themes),
     }

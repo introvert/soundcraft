@@ -26,12 +26,19 @@ import `compose`. It needs the soundfocus-app checkout on the
 - **Library.** Saved programs (`programs/`) and the built-in themes from
   `compose/themes.py`, loaded live, as starting points. A dot marks slugs
   that have a render.
-- **Editor.** Every `Theme` field: key and drone, the four chords (note
-  names like `A2 E3 C#4`, or MIDI numbers) with their top lines, body and halo
-  patches (autocomplete from your Surge library), air, bands, breath, reverb,
-  texture, events (with a ▶ to hear one strike), the arp, and per-pad extras.
-  The raw program JSON is editable under Advanced. It validates as you type and
-  shows the engine's resulting default depth and global low-pass.
+- **Editor**, in tabs (Sound, Harmony, Layers, Space, Events, Arp, Advanced):
+  - Chords: type a chord name (`Am9`, `Fmaj7`, `G6/9`, `C/E`) for a spread
+    voicing like the built-in themes, click a keyboard to add or remove notes
+    (alt-click sets the top line), move by semitone or octave, copy to the next
+    chord. Each chord shows its detected name.
+  - Change key in one click: tonic, chords, top lines, air and arp tones and
+    event pitches move together.
+  - Patches are picked from a searchable list grouped by folder, with the ones
+    the built-in themes use marked.
+  - "Fit to chords" fills air or arp tones with notes shared by the four chords.
+  - Undo and redo (⌘Z / ⇧⌘Z), with each click its own step.
+  - It validates as you type (a tab with a problem is underlined) and shows the
+    engine's resulting whole-mix low-pass. The raw program JSON is under Advanced.
 - **Sketch.** An instant Web Audio stand-in: the chords in order with the
   crossfade, halo, top line and breath, the drone, air, texture, events and arp,
   through the program's bands and reverb. Edits are heard live. Instruments are

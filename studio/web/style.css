@@ -149,3 +149,53 @@ dialog h3 { margin: 0 0 12px; text-transform: none; letter-spacing: 0; font-size
   .grid2, .grid3, .chords { grid-template-columns: 1fr; }
   .top { flex-wrap: wrap; }
 }
+
+/* tabs */
+.tabs { display: flex; gap: 4px; position: sticky; top: -18px; z-index: 3; background: var(--bg); padding: 10px 0 12px; margin: -6px 0 6px; max-width: 980px; flex-wrap: wrap; }
+.tab { background: transparent; border: 1px solid transparent; border-radius: 8px; padding: 6px 14px; color: var(--muted); }
+.tab:hover:not(:disabled) { background: var(--panel2); border-color: var(--line); color: var(--text); }
+.tab.on { background: var(--panel2); border-color: var(--accent); color: var(--text); }
+.tab.bad { box-shadow: inset 0 -2px 0 var(--bad); }
+.tab .off, .tab .count { color: var(--muted); font-size: 11px; }
+button.icon { font-size: 16px; padding: 4px 10px; }
+.row.tight { margin-top: 0; gap: 6px; }
+.row.tight > input { flex: 1; min-width: 0; }
+.nowrap { white-space: nowrap; }
+
+/* chord cards */
+.chord-card { display: flex; flex-direction: column; gap: 8px; }
+.chord-head { margin-bottom: 0; }
+.chordlabel { font-family: var(--mono); color: var(--accent2); font-size: 13px; }
+input.chordname { font-family: var(--mono); max-width: 150px; }
+.chord-card .tops { gap: 8px 12px; }
+.kb { --w: calc(100% / var(--n)); position: relative; height: 54px; display: flex; user-select: none; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+.kb .wk { flex: 1; background: #d9dae3; border-right: 1px solid #9a9cab; position: relative; cursor: pointer; }
+.kb .wk:last-of-type { border-right: 0; }
+.kb .wk span { position: absolute; bottom: 2px; left: 0; right: 0; text-align: center; font-size: 8px; color: #555a6e; pointer-events: none; }
+.kb .bk { position: absolute; top: 0; width: calc(var(--w) * 0.64); height: 58%; background: #1b1d27; border-radius: 0 0 3px 3px; cursor: pointer; z-index: 1; }
+.kb .wk:hover { background: #c3c0f0; } .kb .bk:hover { background: #4a4380; }
+.kb .wk.on { background: var(--accent); } .kb .bk.on { background: var(--accent2); }
+.kb .tl { box-shadow: inset 0 -6px 0 var(--warn); }
+.kb .wk.on span { color: #fff; }
+
+/* patch picker */
+button.patch { width: 100%; text-align: left; display: flex; flex-direction: column; gap: 1px; padding: 7px 10px; background: #0f1118; }
+button.patch .pname { font-weight: 600; }
+button.patch .pwhere, .pitem .pwhere { font-size: 11px; color: var(--muted); }
+dialog:has(.picker) { width: min(640px, 92vw); }
+.picker { display: flex; flex-direction: column; gap: 8px; }
+.patchlist { height: 50vh; overflow: auto; border: 1px solid var(--line); border-radius: 8px; padding: 6px; background: #0f1118; }
+.pgroup h5 { margin: 8px 6px 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.pitem { padding: 5px 8px; border-radius: 6px; cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
+.pitem:hover { background: var(--panel2); }
+.pitem.on { background: #8b7cf633; }
+.pitem .used { color: var(--accent2); font-size: 9px; }
+.pitem .pwhere { margin-left: auto; }
+details.more { margin-top: 10px; }
+
+.chords { grid-template-columns: 1fr; }
+.kb { height: 64px; }
+.chord-controls { display: grid; grid-template-columns: 130px auto minmax(140px, 1fr) 220px; gap: 10px; align-items: end; }
+.chord-controls .field { margin: 0; }
+input.chordname { max-width: none; }
+@media (max-width: 1000px) { .chord-controls { grid-template-columns: 1fr 1fr; } }
